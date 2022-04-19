@@ -52,6 +52,14 @@ I have already collected a lot of data on the National Parks and the trails, dep
     - features
     - activities
     - units 
+  - Summary Statistics 
+
+
+
+```{r}
+knitr::include_graphics('img/SummaryAllTrails.png')
+```
+
 
 ## National Park Service Data 
 
