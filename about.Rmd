@@ -6,4 +6,13 @@ output:
     highlight: espresso 
 ---
 
-Why I am awesome.
+## Gabrielle Scibelli 
+
+### Major: 
+
+Economics 
+
+### Minors: 
+
+Mathematics and Data Analytics 
+
