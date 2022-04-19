@@ -31,19 +31,47 @@ I have already collected a lot of data on the National Parks and the trails, dep
 
 ## All Trails Data  
 
-1. The All Trails data
-  -has included variables: trail_id, name, area_name, city_name, state_name, country_name, _geoloc, popularity, length, elevation_gain, diffciulty rating, route_type, visitor_usage, avg_rating, num_reviews, features, activities, units. 
+1. All Trails Data
+  - This data is from the Alltrails website, which is a platform containing all hiking trails, and important decriptions. 
+  - variables: 
+    - trail_id
+    - name
+    - area_name
+    - city_name
+    - state_name
+    - country_name
+    - _geoloc
+    - popularity
+    - length
+    - elevation_gain
+    - diffciulty rating
+    - route_type
+    - visitor_usage
+    - avg_rating
+    - num_reviews
+    - features
+    - activities
+    - units 
 
 ## National Park Service Data 
 
 1. Annual Recreation Visits (1904-1979) 
-  -Measures the total number of recreational visitors per year. 
+  - Measures the total number of recreational visitors per year. 
+
   
 2. Public Use Statistics (1979-2021)
-  -Public Use Statistics give the number of visits per month and year for each National Park. This data includes Recreation and Non-Recreation Visits, as well as the hohurs the park was open for each group and the number of visitors who camped, stayed overnight, etc. 
+  - Public Use Statistics give the number of visits per month and year for each National Park. This data includes Recreation and Non-Recreation Visits, as well as the hohurs the park was open for each group and the number of visitors who camped, stayed overnight, etc. 
   
 3. Traffic Counts (1985-2021)
-  -This measure the location of where visitors entered each park, by month and year. 
+  - This measure the location of where visitors entered each park, by month and year. 
+
+## Economic Contribution of National Park Visitor Spending 
+1. Visitor Spending Data 
+  - Gives us information on the number of visitors in each park and how much they spend in each National Park, the number of jobs provided by parks, and home much income workers make. 
+
+# Research Question 
+
+Is visitation increasing or decreasing at certain parks and does the amount of federal funds correlate to those numbers or are there other factors that can be tied to the participation numbers such as climate change or pollution issues?
 
 
 
