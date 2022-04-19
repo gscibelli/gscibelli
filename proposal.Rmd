@@ -11,8 +11,10 @@ output:
     toc_float: true 
     number_sections: true
     theme: united 
-    highlight: sandstone 
+    highlight: espresso 
 ---
+
+# Intoduction
 
 I want to look at National Park data for my research project. I will do research and analyze which parks have the most visitors and if there are specific months and years where the visitation increased or decreased. By looking at the distributions of visitation, I want to identify what could’ve caused these spikes and peaks. With this data, I want to see if I can determine if certain parks are given more funding by the National Park Service. 
 I also want to see where most of the parks are located in the country, and if there is a specific location where there are more or less parks. I want to see how the climate patterns have affected these National Parks, and if any parks suffered from climate disruptions. In addition to this, I want to look at other events in history, such as the stock market crashes, the financial crisis, and COVID-19 to see if more people visited the parks during these times and enjoyed a “staycation” instead of traveling abroad or at resorts. 

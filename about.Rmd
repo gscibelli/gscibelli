@@ -1,5 +1,9 @@
 ---
 title: "About Me"
+output: 
+  html_document:
+    theme: united 
+    highlight: espresso 
 ---
 
 Why I am awesome.
