@@ -9,5 +9,7 @@ navbar:
       href: about.html
     - text: "National Park Page"
       href: proposal.html
+    - text: "Homework #4"
+      href: homework4.html
 output:
   html_document
