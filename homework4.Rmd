@@ -1,5 +1,6 @@
 ---
 title: 'Homework #4'
+author: Gabrielle Scibelli 
 output: 
   html_document:
     df_print: paged 
@@ -12,12 +13,13 @@ output:
 ---
 
 # gganimate 
-
+The following link is for the data that is used in this Section. 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+imf_growth <- read.csv(url('https://bcdanl.github.io/data/imf_growth_quarterly.csv'))
 ```
 
+- geom_tile() and geom_text() 
 
 ```{r cars}
 summary(cars)

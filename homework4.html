@@ -12,7 +12,7 @@
 <meta name="author" content="Gabrielle Scibelli" />
 
 
-<title>National Park Presentation</title>
+<title>Homework #4</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -426,91 +426,32 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">National Park Presentation</h1>
-<h3 class="subtitle">Paper Proposal</h3>
+<h1 class="title toc-ignore">Homework #4</h1>
 <h4 class="author">Gabrielle Scibelli</h4>
-<h4 class="date">r Sys.Date()</h4>
 
 </div>
 
 
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="paper-proposal" class="section level2">
-<h2><span class="header-section-number">1.1</span> Paper Proposal</h2>
-<p>I want to look at National Park data for my research project. I will do research and analyze which parks have the most visitors and if there are specific months and years where the visitation increased or decreased. By looking at the distributions of visitation, I want to identify what could’ve caused these spikes and peaks. With this data, I want to see if I can determine if certain parks are given more funding by the National Park Service.</p>
-<p>I also want to see where most of the parks are located in the country, and if there is a specific location where there are more or less parks. I want to see how the climate patterns have affected these National Parks, and if any parks suffered from climate disruptions. In addition to this, I want to look at other events in history, such as the stock market crashes, the financial crisis, and COVID-19 to see if more people visited the parks during these times and enjoyed a “staycation” instead of traveling abroad or at resorts. The National Park Service is primarily funded by Congress, but also is funded through park entrance fees and some private philanthropies. For years the National Park Service has lacked the funding it needs to maintain and protect these national parks. Since the first National Park, Yellowstone, was established in 1872, there have been an additional 400 National Parks with over 20,000 employees added. This research is important, because it can help determine how much funding the National Parks need and which ones need more attention than others. It can help us discover how different issues have affected these National Parks. It can also help us see if certain parks should be closed during certain times of the year in order to have a more efficient and effective budget for these parks. If I can gather all the data I want, such as species counts, climate, and pollution, I will be able to analyze which parks and locations have the biggest problems with these issues. We’ve seen National Parks becoming overcrowded and polluted. Being able to identify these indicators and which parks suffer the most, will allow me to see what needs to be done in order to keep these National Parks from deteriorating. We know that national parks provide peaceful places to enjoy scenery and give wildlife and native plants a safe home which maintains our ecosystem. Economically, national parks create jobs in tourism, park management and capital works and draw visitors to regional areas where they spend their money in local towns. My null hypothesis would be “Is visitation increasing or decreasing at certain parks and does the amount of federal funds correlate to those numbers or are there other factors that can be tied to the participation numbers such as climate change or pollution issues?” I have already collected a lot of data on the National Parks and the trails, depicting visitation and traffic counts. I am still working on finding more available data on the climate in these locations. Most of my data is from the National Park Services, I am also trying to scrap data from the National Weather Service. My approach to answering this question is to first look at the basic statistics like, number of parks per state, number of trails per park, popularity of each National Park vs the number of visitors, geographical locations of parks and how popular the parks are based on the activities they offer. Next I want to find more data on National Park funding and see how this correlates with visitation and popularity. I also want to look at climate trends and see how this might affect the visitation statistics. I will find the annual and monthly number of visitors for each park and each state, then see if there are seasonal trends based on location.</p>
-</div>
-</div>
-<div id="data-summary" class="section level1">
-<h1><span class="header-section-number">2</span> Data Summary</h1>
-<div id="all-trails-data" class="section level2">
-<h2><span class="header-section-number">2.1</span> All Trails Data</h2>
-<ol style="list-style-type: decimal">
-<li>All Trails Data</li>
-</ol>
+<div id="gganimate" class="section level1">
+<h1><span class="header-section-number">1</span> gganimate</h1>
+<p>The following link is for the data that is used in this Section.</p>
 <ul>
-<li>This data is from the Alltrails website, which is a platform containing all hiking trails, and important decriptions.</li>
-<li>variables:
-<ul>
-<li>trail_id</li>
-<li>name</li>
-<li>area_name</li>
-<li>city_name</li>
-<li>state_name</li>
-<li>country_name</li>
-<li>_geoloc</li>
-<li>popularity</li>
-<li>length</li>
-<li>elevation_gain</li>
-<li>diffciulty rating</li>
-<li>route_type</li>
-<li>visitor_usage</li>
-<li>avg_rating</li>
-<li>num_reviews</li>
-<li>features</li>
-<li>activities</li>
-<li>units</li>
-</ul></li>
-<li>Summary Statistics</li>
+<li>geom_tile() and geom_text()</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&#39;img/SummaryAllTrails.png&#39;</span>)</span></code></pre></div>
-<p><img src="img/SummaryAllTrails.png" width="594" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">summary</span>(cars)</span></code></pre></div>
+<pre><code>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="including-plots" class="section level2">
+<h2><span class="header-section-number">1.1</span> Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<p><img src="homework4_files/figure-html/pressure-1.png" width="672" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </div>
-<div id="national-park-service-data" class="section level2">
-<h2><span class="header-section-number">2.2</span> National Park Service Data</h2>
-<ol style="list-style-type: decimal">
-<li>Annual Recreation Visits (1904-1979)</li>
-</ol>
-<ul>
-<li>Measures the total number of recreational visitors per year.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Public Use Statistics (1979-2021)</li>
-</ol>
-<ul>
-<li>Public Use Statistics give the number of visits per month and year for each National Park. This data includes Recreation and Non-Recreation Visits, as well as the hohurs the park was open for each group and the number of visitors who camped, stayed overnight, etc.</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Traffic Counts (1985-2021)</li>
-</ol>
-<ul>
-<li>This measure the location of where visitors entered each park, by month and year.</li>
-</ul>
-</div>
-<div id="economic-contribution-of-national-park-visitor-spending" class="section level2">
-<h2><span class="header-section-number">2.3</span> Economic Contribution of National Park Visitor Spending</h2>
-<ol style="list-style-type: decimal">
-<li>Visitor Spending Data</li>
-</ol>
-<ul>
-<li>Gives us information on the number of visitors in each park and how much they spend in each National Park, the number of jobs provided by parks, and home much income workers make.</li>
-</ul>
-</div>
-</div>
-<div id="research-question" class="section level1">
-<h1><span class="header-section-number">3</span> Research Question</h1>
-<p>Is visitation increasing or decreasing at certain parks and does the amount of federal funds correlate to those numbers or are there other factors that can be tied to the participation numbers such as climate change or pollution issues?</p>
 </div>
 
 
