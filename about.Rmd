@@ -6,13 +6,8 @@ output:
     highlight: espresso 
 ---
 
-## Gabrielle Scibelli 
+- **Name:** Gabrielle Scibelli 
+- **Major:** Economics 
+- **Minor:** Mathematics and Data Analytics 
 
-### Major: 
-
-Economics 
-
-### Minors: 
-
-Mathematics and Data Analytics 
 
