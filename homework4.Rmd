@@ -14,7 +14,6 @@ output:
 # DANL 310 Homework 4
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(ggplot2)
 library(gganimate)
 library(tidyverse)
@@ -33,7 +32,7 @@ library(plotly)
 
 
 ## gganimate 
-```{r imf growth, include=TRUE}
+```{r, message=FALSE}
 
 imf_growth <- read.csv(url('https://bcdanl.github.io/data/imf_growth_quarterly.csv'))
 imf <- ggplot(data = imf_growth, 
@@ -55,7 +54,7 @@ animate(imf_anim, fps = 6, renderer = gifski_renderer("growthrate.gif"))
 
 
 ## ggiraph 
-```{r climate opinion, include=TRUE}
+```{r, message = FALSE}
  
 climate_opinion <- read.csv(
   'https://bcdanl.github.io/data/climate_opinion_2021.csv')
