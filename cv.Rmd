@@ -2,9 +2,6 @@
 title: "Résumé<br><br>"
 menu: main
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
   html_document:
     df_print: paged
     toc: yes
@@ -13,6 +10,9 @@ output:
     number_sections: no
     theme: united
     highlight: espresso
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
 ---
 
 
@@ -81,7 +81,8 @@ Here is my [curriculum vitae](Resume- Gabrielle Scibelli _2022-2.pdf) `r fa("fas
 
 
 ::: {}
-![](bchoe20201027.jpg){width=75%}
+![](IMG_6773.jpeg){width=50%}
+
 :::
 
 ::::
@@ -107,25 +108,6 @@ cv_entries %>%
 ```
 
 
-<br>
-
-# Honors & Awards
-```{r}
-cv_entries %>% 
-  filter(type == 'awards') %>%
-  filter(!(website == "n") | is.na(website)) %>% 
-  mutate(what = if_else(
-    !is.na(where),
-    str_c("<span class='cv-entry-title'>", what, "</span>, ", where),
-    str_c("<span class='cv-entry-title'>", what, "</span>"))
-  ) %>% 
-  blank_year_when_repeated() %>% 
-  select(year_begin, what) %>% 
-  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed"))   %>% 
-  column_spec(1, width = "15%")
-```
- 
 <br>
 
 
@@ -185,7 +167,7 @@ cv_entries %>%
 
 
 
-## Community Involvement & Volunteering
+# Community Involvement & Volunteering
 ```{r}
 cv_entries %>%
   filter(type == 'volunteering') %>%
