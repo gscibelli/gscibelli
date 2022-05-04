@@ -1,13 +1,16 @@
 ---
 title: "Résumé<br><br>"
 menu: main
-output: 
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     df_print: paged
-    toc: true
+    toc: yes
     toc_depth: 2
-    toc_float: true
-    number_sections: false
+    toc_float: yes
+    number_sections: no
     theme: united
     highlight: espresso
 ---
@@ -71,8 +74,7 @@ I am an **economics** major with **mathematics and data analytics** minors curre
 
 
 
-
-Here is my [curriculum vitae `r fa("fas fa-file-pdf", fill = "red")`](Resume- Gabrielle Scibelli _2022-2.pdf).
+Here is my [curriculum vitae](Resume- Gabrielle Scibelli _2022-2.pdf) `r fa("fas fa-file-pdf", fill = "red")`.
 
 <div style="text-align: right"> Last updated: `r Sys.Date()` </div>
 :::
@@ -106,6 +108,26 @@ cv_entries %>%
 
 
 <br>
+
+# Honors & Awards
+```{r}
+cv_entries %>% 
+  filter(type == 'awards') %>%
+  filter(!(website == "n") | is.na(website)) %>% 
+  mutate(what = if_else(
+    !is.na(where),
+    str_c("<span class='cv-entry-title'>", what, "</span>, ", where),
+    str_c("<span class='cv-entry-title'>", what, "</span>"))
+  ) %>% 
+  blank_year_when_repeated() %>% 
+  select(year_begin, what) %>% 
+  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>%
+  kable_styling( bootstrap_options = c("hover", "condensed"))   %>% 
+  column_spec(1, width = "15%")
+```
+ 
+<br>
+
 
 # Honors & Awards 
 ```{r}
@@ -161,24 +183,6 @@ cv_entries %>%
 
 <br>
 
-# Hornors & Awards
-```{r}
-cv_entries %>% 
-  filter(type == 'awards') %>%
-  filter(!(website == "n") | is.na(website)) %>% 
-  mutate(what = if_else(
-    !is.na(where),
-    str_c("<span class='cv-entry-title'>", what, "</span>, ", where),
-    str_c("<span class='cv-entry-title'>", what, "</span>"))
-  ) %>% 
-  blank_year_when_repeated() %>% 
-  select(year_begin, what) %>% 
-  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed"))   %>% 
-  column_spec(1, width = "15%")
-```
- 
-<br>
 
 
 ## Community Involvement & Volunteering

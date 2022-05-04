@@ -1,0 +1,13 @@
+---
+title: "Sampling"
+subtitle: "Central Limit Theorem" 
+output: html_document
+---
+````{=html}
+<style>iframe{height: 1200px; width: 800px}</style>
+<iframe height= 100% width="100%" frameborder="no"
+src=" https://4nc2p2-gabrielle-scibelli.shinyapps.io/TestApp/">
+</iframe>
+
+````
+

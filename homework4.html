@@ -453,66 +453,66 @@ div.tocify {
 </div>
 <div id="ggiraph" class="section level2">
 <h2><span class="header-section-number">1.2</span> ggiraph</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>climate_opinion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="st">&#39;https://bcdanl.github.io/data/climate_opinion_2021.csv&#39;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>county_map&lt;-socviz<span class="op">::</span>county_map</span>
-<span id="cb2-5"><a href="#cb2-5"></a>county_map<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw">as.integer</span>(county_map<span class="op">$</span>id)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>county_full&lt;-<span class="st"> </span><span class="kw">left_join</span>(county_map, climate_opinion, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a>na_map &lt;-<span class="st"> </span><span class="cf">function</span>(yr){</span>
-<span id="cb2-11"><a href="#cb2-11"></a>  county_full_na &lt;-<span class="st"> </span><span class="kw">filter</span>(county_full, <span class="kw">is.na</span>(belief)) <span class="op">%&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>belief)<span class="op">%&gt;%</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">belief =</span> yr)</span>
-<span id="cb2-14"><a href="#cb2-14"></a>}</span>
-<span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="cf">for</span> (val <span class="cf">in</span> <span class="kw">levels</span>( <span class="kw">factor</span>(county_full<span class="op">$</span>belief))) {</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  county_full &lt;-<span class="kw">rbind</span>(county_full, <span class="kw">na_map</span>(val))</span>
-<span id="cb2-18"><a href="#cb2-18"></a>}</span>
-<span id="cb2-19"><a href="#cb2-19"></a></span>
-<span id="cb2-20"><a href="#cb2-20"></a>county_full &lt;-<span class="st"> </span>county_full<span class="op">%&gt;%</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">belief_desc =</span> <span class="kw">ifelse</span>(belief <span class="op">==</span><span class="st"> &quot;happening&quot;</span>, </span>
-<span id="cb2-22"><a href="#cb2-22"></a>                              <span class="st">&quot;Global warming is happening.&quot;</span>,</span>
-<span id="cb2-23"><a href="#cb2-23"></a>                              <span class="st">&quot;Global warming is mostly caused by human activites.&quot;</span>))</span>
-<span id="cb2-24"><a href="#cb2-24"></a></span>
-<span id="cb2-25"><a href="#cb2-25"></a>county_full_<span class="dv">1</span> &lt;-<span class="st"> </span>county_full <span class="op">%&gt;%</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="st">  </span><span class="kw">filter</span>(belief <span class="op">==</span><span class="st"> &quot;human&quot;</span>)</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> county_full_<span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, </span>
-<span id="cb2-30"><a href="#cb2-30"></a>                             <span class="dt">group =</span> group, <span class="dt">fill =</span> perc, <span class="dt">text =</span> GeoName ),</span>
-<span id="cb2-31"><a href="#cb2-31"></a>               <span class="dt">color =</span> <span class="st">&quot;grey60&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>)</span></code></pre></div>
-<pre><code>## Warning: Ignoring unknown aesthetics: text</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>p2 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">low =</span> <span class="st">&quot;maroon&quot;</span>, </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">high =</span> <span class="st">&quot;magenta4&quot;</span>, </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">mid =</span> <span class="st">&quot;white&quot;</span>, </span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">na.value =</span> <span class="st">&quot;grey80&quot;</span>, </span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">midpoint =</span> <span class="dv">50</span>, </span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="dv">0</span>, <span class="dt">na.rm =</span> T),</span>
-<span id="cb4-8"><a href="#cb4-8"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.25</span>, <span class="dt">na.rm =</span> T),</span>
-<span id="cb4-9"><a href="#cb4-9"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.5</span>, <span class="dt">na.rm =</span> T),</span>
-<span id="cb4-10"><a href="#cb4-10"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.75</span>, <span class="dt">na.rm =</span> T),</span>
-<span id="cb4-11"><a href="#cb4-11"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="dv">1</span>, <span class="dt">na.rm =</span> T)),</span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="dt">guide =</span> <span class="kw">guide_colorbar</span>( <span class="dt">direction =</span> <span class="st">&quot;vertical&quot;</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>                        <span class="dt">barwidth =</span> <span class="dv">25</span>, </span>
-<span id="cb4-14"><a href="#cb4-14"></a>                        <span class="dt">title.vjust =</span> <span class="dv">1</span>)</span>
-<span id="cb4-15"><a href="#cb4-15"></a>)</span>
-<span id="cb4-16"><a href="#cb4-16"></a></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(ggiraph)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggiraph&#39; was built under R version 4.0.5</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>climate_opinion &lt;-<span class="st"> </span><span class="kw">read.csv</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="st">&#39;https://bcdanl.github.io/data/climate_opinion_2021.csv&#39;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>county_map&lt;-socviz<span class="op">::</span>county_map</span>
+<span id="cb4-5"><a href="#cb4-5"></a>county_map<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw">as.integer</span>(county_map<span class="op">$</span>id)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>county_full&lt;-<span class="st"> </span><span class="kw">left_join</span>(county_map, climate_opinion, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>na_map &lt;-<span class="st"> </span><span class="cf">function</span>(yr){</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  county_full_na &lt;-<span class="st"> </span><span class="kw">filter</span>(county_full, <span class="kw">is.na</span>(belief)) <span class="op">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>belief)<span class="op">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">    </span><span class="kw">mutate</span>( <span class="dt">belief =</span> yr)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>}</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="cf">for</span> (val <span class="cf">in</span> <span class="kw">levels</span>( <span class="kw">factor</span>(county_full<span class="op">$</span>belief))) {</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  county_full &lt;-<span class="kw">rbind</span>(county_full, <span class="kw">na_map</span>(val))</span>
+<span id="cb4-16"><a href="#cb4-16"></a>}</span>
 <span id="cb4-17"><a href="#cb4-17"></a></span>
-<span id="cb4-18"><a href="#cb4-18"></a>clim &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Percent</span><span class="ch">\n</span><span class="st">Belief&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;U.S. Climate Opinion, 2021:</span><span class="ch">\n</span><span class="st">Global warming is mostly caused by human activities&quot;</span>, </span>
-<span id="cb4-19"><a href="#cb4-19"></a>                  <span class="dt">caption =</span> <span class="st">&quot;Sources: Yale Program on Climate Change Communication</span><span class="ch">\n</span><span class="st"> (https://climatecommunication.yale.edu/visualizations-data/ycom-us/)&quot;</span>) <span class="op">+</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="st">  </span><span class="kw">theme_map</span>() <span class="op">+</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">unit</span>( <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">3.85</span>, <span class="fl">0.5</span>), <span class="st">&quot;cm&quot;</span>),</span>
-<span id="cb4-22"><a href="#cb4-22"></a>        <span class="dt">legend.position =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.2</span>),</span>
-<span id="cb4-23"><a href="#cb4-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>),</span>
-<span id="cb4-24"><a href="#cb4-24"></a>        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>( <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb4-25"><a href="#cb4-25"></a>                                         <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, </span>
-<span id="cb4-26"><a href="#cb4-26"></a>                                         <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_coloursteps</span>(<span class="dt">direction =</span> <span class="st">&quot;horizontal&quot;</span>, <span class="dt">barwidth =</span> <span class="dv">25</span>, <span class="dt">title.vjust =</span> <span class="dv">-1</span>))</span>
-<span id="cb4-28"><a href="#cb4-28"></a>clim</span></code></pre></div>
+<span id="cb4-18"><a href="#cb4-18"></a>county_full &lt;-<span class="st"> </span>county_full<span class="op">%&gt;%</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">belief_desc =</span> <span class="kw">ifelse</span>(belief <span class="op">==</span><span class="st"> &quot;happening&quot;</span>, </span>
+<span id="cb4-20"><a href="#cb4-20"></a>                              <span class="st">&quot;Global warming is happening.&quot;</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>                              <span class="st">&quot;Global warming is mostly caused by human activites.&quot;</span>))</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>county_full_<span class="dv">1</span> &lt;-<span class="st"> </span>county_full <span class="op">%&gt;%</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="st">  </span><span class="kw">filter</span>(belief <span class="op">==</span><span class="st"> &quot;human&quot;</span>)</span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
+<span id="cb4-26"><a href="#cb4-26"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> county_full_<span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="st">  </span><span class="kw">geom_polygon_interactive</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, </span>
+<span id="cb4-28"><a href="#cb4-28"></a>                             <span class="dt">group =</span> group, <span class="dt">fill =</span> perc, <span class="dt">text =</span> GeoName ),</span>
+<span id="cb4-29"><a href="#cb4-29"></a>               <span class="dt">color =</span> <span class="st">&quot;grey60&quot;</span>, <span class="dt">size =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## Warning: Ignoring unknown aesthetics: text</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>p2 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">scale_fill_gradient2</span>(</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="dt">low =</span> <span class="st">&quot;maroon&quot;</span>, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">high =</span> <span class="st">&quot;magenta4&quot;</span>, </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="dt">mid =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="dt">na.value =</span> <span class="st">&quot;grey80&quot;</span>, </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="dt">midpoint =</span> <span class="dv">50</span>, </span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="dv">0</span>, <span class="dt">na.rm =</span> T),</span>
+<span id="cb6-8"><a href="#cb6-8"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.25</span>, <span class="dt">na.rm =</span> T),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.5</span>, <span class="dt">na.rm =</span> T),</span>
+<span id="cb6-10"><a href="#cb6-10"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="fl">.75</span>, <span class="dt">na.rm =</span> T),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>             <span class="kw">quantile</span>(county_full<span class="op">$</span>perc, <span class="dv">1</span>, <span class="dt">na.rm =</span> T)),</span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="dt">guide =</span> <span class="kw">guide_colorbar</span>( <span class="dt">direction =</span> <span class="st">&quot;vertical&quot;</span>,</span>
+<span id="cb6-13"><a href="#cb6-13"></a>                        <span class="dt">barwidth =</span> <span class="dv">25</span>, </span>
+<span id="cb6-14"><a href="#cb6-14"></a>                        <span class="dt">title.vjust =</span> <span class="dv">1</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>)</span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a></span>
+<span id="cb6-18"><a href="#cb6-18"></a>clim &lt;-<span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Percent</span><span class="ch">\n</span><span class="st">Belief&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;U.S. Climate Opinion, 2021:</span><span class="ch">\n</span><span class="st">Global warming is mostly caused by human activities&quot;</span>, </span>
+<span id="cb6-19"><a href="#cb6-19"></a>                  <span class="dt">caption =</span> <span class="st">&quot;Sources: Yale Program on Climate Change Communication</span><span class="ch">\n</span><span class="st"> (https://climatecommunication.yale.edu/visualizations-data/ycom-us/)&quot;</span>) <span class="op">+</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="st">  </span><span class="kw">theme_map</span>() <span class="op">+</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.margin =</span> <span class="kw">unit</span>( <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">3.85</span>, <span class="fl">0.5</span>), <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb6-22"><a href="#cb6-22"></a>        <span class="dt">legend.position =</span> <span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.2</span>),</span>
+<span id="cb6-23"><a href="#cb6-23"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>),</span>
+<span id="cb6-24"><a href="#cb6-24"></a>        <span class="dt">strip.background =</span> <span class="kw">element_rect</span>( <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb6-25"><a href="#cb6-25"></a>                                         <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb6-26"><a href="#cb6-26"></a>                                         <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="kw">guide_coloursteps</span>(<span class="dt">direction =</span> <span class="st">&quot;horizontal&quot;</span>, <span class="dt">barwidth =</span> <span class="dv">25</span>, <span class="dt">title.vjust =</span> <span class="dv">-1</span>))</span>
+<span id="cb6-28"><a href="#cb6-28"></a>clim</span></code></pre></div>
 <p><img src="homework4_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>The effect of the COVID-19 Pandemic on economic growth is shown in the animation above.</p>
 </div>

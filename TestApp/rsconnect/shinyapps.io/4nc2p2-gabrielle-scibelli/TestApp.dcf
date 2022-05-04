@@ -1,0 +1,13 @@
+name: TestApp
+title: TestApp
+username:
+account: 4nc2p2-gabrielle-scibelli
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6224342
+bundleId: 5865549
+url: https://4nc2p2-gabrielle-scibelli.shinyapps.io/TestApp/
+when: 1651599507.31893
+lastSyncTime: 1651599507.31894
+asMultiple: FALSE
+asStatic: FALSE

@@ -28,6 +28,7 @@ library(ggplot2)
 library(maps)
 library(ggthemes)
 library(plotly)
+
 ```
 
 
@@ -55,15 +56,13 @@ animate(imf_anim, fps = 6, renderer = gifski_renderer("growthrate.gif"))
 
 ## ggiraph 
 ```{r, message = FALSE}
- 
+library(ggiraph)
 climate_opinion <- read.csv(
   'https://bcdanl.github.io/data/climate_opinion_2021.csv')
 
 county_map<-socviz::county_map
 county_map$id <- as.integer(county_map$id)
 county_full<- left_join(county_map, climate_opinion, by = "id")
-
-
 
 na_map <- function(yr){
   county_full_na <- filter(county_full, is.na(belief)) %>%
@@ -84,7 +83,7 @@ county_full_1 <- county_full %>%
   filter(belief == "human")
 
 p1 <- ggplot(data = county_full_1) +
-  geom_polygon(mapping = aes(x = long, y = lat, 
+  geom_polygon_interactive(mapping = aes(x = long, y = lat, 
                              group = group, fill = perc, text = GeoName ),
                color = "grey60", size = 0.1)
 
