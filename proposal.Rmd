@@ -1,8 +1,7 @@
 ---
 title: "National Park Presentation"
-subtitle: "Paper Proposal"
+subtitle: "Data Visualization Final Project 2022"
 author: "Gabrielle Scibelli"
-date: 'r Sys.Date()'
 output: 
   html_document:
     df_print: paged 
@@ -14,74 +13,300 @@ output:
     highlight: espresso 
 ---
 
-# Introduction
+# Project Overview 
+This is the link for the final paper. Click [here](Final Paper.pdf).
 
-## Paper Proposal 
+## Motivation For The Project 
 
-I want to look at National Park data for my research project. I will do research and analyze which parks have the most visitors and if there are specific months and years where the visitation increased or decreased. By looking at the distributions of visitation, I want to identify what could’ve caused these spikes and peaks. With this data, I want to see if I can determine if certain parks are given more funding by the National Park Service.
+I want to look at National Park data for my research project. The National Parks are an important part of the United States and function as areas of land that are preserved by the national government. They can have historical elements, or be a place to enjoy the wonderful views they have to offer. I have been to several National Parks myself. I would like to look at the data to : 
 
-I also want to see where most of the parks are located in the country, and if there is a specific location where there are more or less parks. I want to see how the climate patterns have affected these National Parks, and if any parks suffered from climate disruptions. In addition to this, I want to look at other events in history, such as the stock market crashes, the financial crisis, and COVID-19 to see if more people visited the parks during these times and enjoyed a “staycation” instead of traveling abroad or at resorts. 
+  - Find which parks have the most visitors each year and if visitation in the parks is increasing or decreasing. 
+  
+  - Identify what could have caused these spikes and peaks in visitation.
+  
+  - Explore which regions of the United States have the most parks. 
+  
+  - Determine if certain parks contribute more to the economy. 
+  
+  - Look at the impacts COVID-19 had on visitation. 
+
+## Background Knowledge
 The National Park Service is primarily funded by Congress, but also is funded through park entrance fees and some private philanthropies. For years the National Park Service has lacked the funding it needs to maintain and protect these national parks. Since the first National Park, Yellowstone, was established in 1872, there have been an additional 400 National Parks with over 20,000 employees added. 
 This research is important, because it can help determine how much funding the National Parks need and which ones need more attention than others. It can help us discover how different issues have affected these National Parks. It can also help us see if certain parks should be closed during certain times of the year in order to have a more efficient and effective budget for these parks. 
-If I can gather all the data I want, such as species counts, climate, and pollution, I will be able to analyze which parks and locations have the biggest problems with these issues. We’ve seen National Parks becoming overcrowded and polluted. Being able to identify these indicators and which parks suffer the most, will allow me to see what needs to be done in order to keep these National Parks from deteriorating. 
-We know that national parks provide peaceful places to enjoy scenery and give wildlife and native plants a safe home which maintains our ecosystem. Economically, national parks create jobs in tourism, park management and capital works and draw visitors to regional areas where they spend their money in local towns. My null hypothesis would be “Is visitation increasing or decreasing at certain parks and does the amount of federal funds correlate to those numbers or are there other factors that can be tied to the participation numbers such as climate change or pollution issues?” 
-I have already collected a lot of data on the National Parks and the trails, depicting visitation and traffic counts. I am still working on finding more available data on the climate in these locations. Most of my data is from the National Park Services, I am also trying to scrap data from the National Weather Service. My approach to answering this question is to first look at the basic statistics like, number of parks per state, number of trails per park, popularity of each National Park vs the number of visitors, geographical locations of parks and how popular the parks are based on the activities they offer. Next I want to find more data on National Park funding and see how this correlates with visitation and popularity. I also want to look at climate trends and see how this might affect the visitation statistics. I will find the annual and monthly number of visitors for each park and each state, then see if there are seasonal trends based on location. 
+We know that national parks provide peaceful places to enjoy scenery and give wildlife and native plants a safe home which maintains our ecosystem. Economically, national parks create jobs in tourism, park management and capital works and draw visitors to regional areas where they spend their money in local towns. 
 
-# Data Summary 
-
-## All Trails Data  
-
-1. All Trails Data
-  - This data is from the Alltrails website, which is a platform containing all hiking trails, and important decriptions. 
-  - variables: 
-    - trail_id
-    - name
-    - area_name
-    - city_name
-    - state_name
-    - country_name
-    - _geoloc
-    - popularity
-    - length
-    - elevation_gain
-    - diffciulty rating
-    - route_type
-    - visitor_usage
-    - avg_rating
-    - num_reviews
-    - features
-    - activities
-    - units 
-  - Summary Statistics 
+## Summary of the Modeling Result 
+In my model I was able to figure out how visitation, park size, and park type correlated to the amount of visitor spending and economic contribution of the parks. If I had more time, I would've liked to gather data on climate change, stocks, and financial patterns to see how these factors could have affected visitation at parks. I was able to see that visitation decreased in 2020 due to the COVID-19 pandemic. 
 
 
-
-```{r}
-knitr::include_graphics('img/SummaryAllTrails.png')
+```{r, include = FALSE}
+library(readr)
+library(tidyverse)
+library(tidyverse)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(skimr)
+library(scales)
+library(kableExtra)
 ```
 
+# Data Summary 
+I was able to collect 30 years of data from the National Park Service. I collected **Public Use Data** data from 1979 to 2021. I also collected data on the amount of trails located in each park from Kaggle, **All Trails Data**. Additionally I was able to find **Visitor Spending Data** for 2020. 
+
+## All Trails Data  
+  - This data is from the All Trails website, which is a platform containing all hiking trails located in each National Park. It includes the coordinates of each trail, park name, state name, and city name. Additionally this data provides variables like the average rating, length, elevation gain, and difficulty rating for each trail. 
+  
+  
+### Summary Statistics: All Trails
+
+```{r, message = FALSE}
+#Read csv file 
+alltrails <- read_csv("/Users/gabriellescibelli/Modified2AllTrails.csv")
+
+#first 6 rows 
+head(alltrails)
+
+rmarkdown::paged_table(alltrails)
+```
+```{r}
+#Number of Trails per state
+TrailsperPark <-alltrails%>%
+  group_by(state_name)%>%
+  summarize(trails = n_distinct(name))
+TrailsperPark%>%
+  arrange(desc(trails))
+```
+
+```{r}
+nvars <- format(round(ncol(alltrails), 0), nsmall = 0, big.mark = ",")
+nobs <- format(round(nrow(alltrails), 0), nsmall = 0, big.mark = ",")
+```
+
+The number of variables is 21; the number of observations 3,313. 
 
 ## National Park Service Data 
 
-1. Annual Recreation Visits (1904-1979) 
-  - Measures the total number of recreational visitors per year. 
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(RSQLite)
+conn <-dbConnect(RSQLite::SQLite(), "public_use.db")
+dbListTables(conn)
+public_use <- dbGetQuery(conn, "SELECT * from public_use")
+public_use
+summary(public_use)
+public_use <-public_use[-1,]
+Rec_Visits <- public_use$`Recreation Visits`
+```
 
-  
-2. Public Use Statistics (1979-2021)
-  - Public Use Statistics give the number of visits per month and year for each National Park. This data includes Recreation and Non-Recreation Visits, as well as the hohurs the park was open for each group and the number of visitors who camped, stayed overnight, etc. 
-  
-3. Traffic Counts (1985-2021)
-  - This measure the location of where visitors entered each park, by month and year. 
+### Public Use Statistics (1979-2021)
+  - Public Use Statistics give the number of visits per month and year for each National Park. This data includes Recreation and Non-Recreation Visits, as well as the hours the park was open for each group and the number of visitors who camped, stayed overnight, etc. 
+
+```{r}
+Hmisc::describe(public_use) %>% Hmisc::html()
+
+```
+
+```{r}
+#Total Visits per Year in each Region 
+public_use%>%
+  group_by(Year, Region)%>%
+  summarize(Total_Visits = n_distinct(Rec_Visits))
+```
 
 ## Economic Contribution of National Park Visitor Spending 
-1. Visitor Spending Data 
+
+### Visitor Spending Data 
   - Gives us information on the number of visitors in each park and how much they spend in each National Park, the number of jobs provided by parks, and home much income workers make. 
 
-# Research Question 
+```{r, message=FALSE}
+Visitor_Spending_2020 <- read_csv("~/Downloads/National Park Project/Visitor Spending State 2020.csv")
+head(Visitor_Spending_2020)
+skim(Visitor_Spending_2020)
+```
 
-Is visitation increasing or decreasing at certain parks and does the amount of federal funds correlate to those numbers or are there other factors that can be tied to the participation numbers such as climate change or pollution issues?
+# Research Questions
+
+  - Is visitation increasing or decreasing at certain parks? 
+  - How many parks are in the United States? Each Region? Each State? 
+    - How many trails are in each park? 
+  - Are there seasonal trends? 
+  - Does the location of the park correlate to the amount of visitation? 
+  - Does the size and amount of parks correlate with the economic contribution of the park? 
+
+
+# Hypothesis 
+
+I believe that parks located in the West will get more visitation and result in more economic contribution than parks located in the East. 
+
+  - The West has more National Parks because at the time when the National Park System was established, most of the land in the East was privately owned.
+  
+  - The West is less urbanized and has more open land.
+  - I think California will have the most parks. 
+  
+# Visualizations 
+
+```{r, include = FALSE}
+public_use
+public_use$Rec_Visits <- as.numeric(public_use$`Recreation Visits`)
+public_use$Year <- as.integer(public_use$Year)
+public_use$Month <- as.integer(public_use$Month)
+public_use$Rec_Hours <- as.numeric(public_use$`Recreation Hours`)
+public_use$Nonrec_Visits <- as.numeric(public_use$`Non-Recreation Visits`)
+public_use$Nonrec_Hours <- as.numeric(public_use$`Non-Recreation Hours`)
+public_use$Lodging <- as.numeric(public_use$`Concessioner
+Lodging`)
+public_use$Camping <- as.numeric(public_use$`Concessioner
+Camping`)
+public_use$Tent <- as.numeric(public_use$`Tent Campers`)
+public_use$RV <- as.numeric(public_use$`RV Campers`)
+public_use$Backcountry <- as.numeric(public_use$`Backcountry Campers`)
+public_use$Nonrec_Overnight <- as.numeric(public_use$`Non-Recreation Overnight Stays`)
+public_use$Park_Type <- as.character(public_use$`Park Type`)
+public_use <- subset(public_use, !(Region %in% "Region"))
+public_use <- subset(public_use, !(State %in% "State"))
+format(Rec_Visits, scientific = FALSE)
+```
+
+## How many Parks are in the United States? 
+```{r}
+total_park_count <-public_use%>%
+  group_by(Year)%>%
+  summarize(p = n_distinct(Park))
+uspark <- ggplot(data = total_park_count, 
+       mapping = aes(x = Year, y = p))+ 
+  geom_line(color="#69b3a2", size=2)+ 
+  ylim(100, 400)+
+  ggtitle("Number of National Parks in the United States \n(1979 - 2021)")+
+  xlab("Year")+
+  ylab("Total Number of Parks")
+uspark
+```
+The number of Parks in the United States has increased from 268 in 1979 to 368 in 2021. 
+
+
+## Number of Parks Per Region
+```{r}
+numparks_region<-public_use%>%
+  group_by(Region)%>%
+  summarize(Parks = n_distinct(Park))
+
+numparks_region%>%arrange(desc(Parks))
+
+```
+The number of parks found in each region. 
+
+To see a map of the Regions click [here](Region Map.jpeg.pdf).
+
+## Visits By Region 
+```{r, message = FALSE}
+regionvis <- public_use%>%
+  group_by(Region, Year)%>%
+  summarize(visits = sum(Rec_Visits))
+regionvis
+ggplot(data = regionvis, 
+       mapping = aes(x = Year, y =visits, fill = Region))+
+  geom_col()
+
+faceted_region <- ggplot(data = public_use, 
+                         mapping = aes(x = Year, y = Rec_Visits))+
+  geom_point(alpha = 0.2)+
+  facet_wrap(~Region, ncol = 3)
+faceted_region+
+  theme_bw()+ 
+  ggtitle("Recreation Visits By Region")+ 
+  ylab("Recreation Visits")+ 
+  xlab("")+
+  scale_y_continuous(labels = comma)
+```
+
+
+## Number of Parks per State and Region
+```{r, warning = FALSE, message=FALSE}
+park_state <- public_use%>%
+  group_by(State, Region)%>%
+  summarize(park = n_distinct(Park))
+park_state%>% arrange(desc(park))%>%ggplot(data = park_state, 
+       mapping = aes(x = State, y = park, color = Region))+ 
+  geom_point()+ 
+  theme(axis.text.x = element_text(angle = 90))+ 
+  labs(x = "State", y = "Park Count", 
+       title = "Amount of Parks by State and Region")
+```
+
+## Number of Trails Per Park 
+```{r}
+TrailsperPark <-alltrails%>%
+  group_by(state_name)%>%
+  summarize(trails = n_distinct(name))%>%
+  arrange(desc(trails))
+c <- ggplot(TrailsperPark, aes(x = state_name, 
+                               y = trails))+
+  geom_segment(aes(x = state_name, xend = state_name, y = 0, yend = trails),
+               color = "skyblue") +
+  geom_point(color = "blue", size = 4, alpha = 0.6)+
+  theme_light()+
+  coord_flip()+
+  theme(panel.border = element_blank(),
+        axis.ticks.y = element_blank())+
+  ggtitle("Number of Trails in each State")+
+  xlab("")+
+  ylab("Number of Trails")
+c
+```
 
 
 
 
+## Visitation in 2021
+```{r}
+lastyear <- public_use%>%
+  filter(Year == 2021)%>%
+  select(Year, Month, Park, Region, Rec_Visits)
+ggplot(data = lastyear, 
+       mapping = aes(x = Month, y = Rec_Visits, fill = Region))+
+  geom_bar(position = "stack", stat = "identity")+
+  scale_x_continuous(breaks = breaks_width(1))+
+  theme_classic()+
+  scale_y_continuous(labels = label_number(suffix = "K", scale = 1e-6))+
+  ylab("Recreation Visit (Thousands) ")+ 
+  xlab("Month")+
+  ggtitle("Visitation By Month in 2021")
+```
+
+
+```{r, include = FALSE}
+library(ggplot2)
+library(scales)
+library(plotly)
+library(dplyr)
+library(viridis)
+library(hrbrthemes)
+```
+## Visitor Spending Data for 2020 
+- I made an interactive plot using plotly. 
+```{r}
+Visitor_Spending_2020 <- read_csv("~/Downloads/National Park Project/Visitor Spending State 2020.csv")
+bubble <- Visitor_Spending_2020%>%
+  arrange(desc(Visitation))%>%
+  mutate(State = factor(State, State))%>%
+  mutate(text = paste("State: ", State, "\nVisitation: ", Visitation,
+                      "\n Spending (M):", spending, "\n Output (M):", output, sep = ""))%>%
+  ggplot(aes(x = spending, y = output, size = Visitation, color = State, text = text))+ 
+  geom_point(alpha = 0.7) + 
+  scale_size(name = "Visitation ")+ 
+  scale_color_viridis(discrete = TRUE, guide = FALSE)+
+  theme_ipsum()+
+  theme(legend.position = "none")
+bubble2 <- ggplotly(bubble, tooltip = "text")  
+bubble2
+
+```
+
+
+# Conclusion 
+The main findings were that California has the most amount of parks and trails, though it is not located in the region that has the most parks. California also has the most amount of visitors per year, so this correlates to why they have the most amount of visitor spending and the highest economic contribution. We can conclude that California does not have to rely heavily on government funding. States with the most parks tend to have higher rates of visitation, and therefore the most visitor spending and economic contribution. I would like to look further into why Washington DC has less economic contribution and visitor spending. My thoughts are that a lot of visits are school bus trips, thus the students are not spending as much as a family would on their visits to the parks. If parks are able to increase their visitation, then they would be able to contribute more to the economy and generate more revenue that could in turn increase the funding that goes toward maintenance of these parks. We saw that the COVID-19 pandemic affect the parks, by decreasing visitation in all regions. I would like to look further to see if any specific parks increased in visitation during these times.
+
+
+I had many limitations while conducting my research, such as not gathering all the data I wanted and having trouble scrapping the specific data. Gathering and cleaning the data took a lot longer than anticipated and therefore set me back in my research and development of economic analysis. I hope to continue this research and look further into variables that made me question the outcomes. I would like to see how visitation changed for each park over the years, and in each month to see if certain parks and park types have become more or less popular over the years. I would also like to look into the climate changes, and travel patterns to see if these factors have to do with visitation rates. I would look further into the average rating of parks and traffic counts in parks. If I can gather all the variables I need, my analysis would be more thorough and be able to make better suggestions to how the parks can change their current mannerisms to make the National Park System better. For now, we can continue to visit these parks and contribute to the maintenance needed. We can do our part by cleaning up parks while we enjoy hikes, to conserve the beauty displayed at these parks.
 
